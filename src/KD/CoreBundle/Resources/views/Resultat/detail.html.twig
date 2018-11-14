@@ -1,0 +1,47 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Affichage des résultats d'un eleve à un qcm #}
+
+
+{% block title %} - Résultats - {{ qcm.titre }}{% endblock %}
+{% block main %}
+    <h1>{{ qcm.titre }} - Réponses de {{ eleve.username }}</h1>
+    <h2>Note : {{ note.valeur }}/{{qcm.getScoreMax()}}</h2>
+        <table class="table">
+           {% for question in qcm.questions %}
+                <tr>
+                    <th>{{ question.texte }}</th>
+                    <th>Réponse de {{ eleve.username }}</th>
+                    <th>Bonne réponse</th>
+                    <th>Score</th>
+                </tr>
+                
+                {% for reponse in question.reponses %}
+                    <tr>
+                        <td>{{ reponse.texte }}</td>
+                        <td>
+                            {% if reponse.isPresent(reponsesEleve) %}
+                                <i class="far fa-check-square"></i>
+                            {%else%}
+                                <i class="far fa-square"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if reponse.vrai %}
+                                <i class="far fa-check-square"></i>
+                            {%else%}
+                                <i class="far fa-square"></i>   
+                            {% endif %}
+                        </td>
+                        <td>{{ reponse.getScoreIfPresent(reponsesEleve)}}</td>
+                    </tr>
+                {% endfor %}
+                
+            {% endfor %}
+            <tr>
+                <th>Total</th>
+                <th></th>
+                <th></th>
+                <th>{{ note.valeur }}</th>
+            </tr>
+        </table>
+{% endblock %}

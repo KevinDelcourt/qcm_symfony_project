@@ -1,0 +1,63 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Affichage de la liste des QCMs pour un professeur #}
+
+{% block title %} - Gestion{% endblock %}
+{% block main %}
+    <h1>QCMs
+        <small>
+            <a href="{{ path('create_qcm') }}" title="Créer un QCM"><i class="fas fa-plus-circle"></i></a>
+        </small>
+    </h1>
+        
+    <table class="table">
+        <tr>
+            <th>Titre</th>
+            <th>Deadline</th>
+            <th>Etat</th>
+            <th>Résultats</th>
+            <th colspan="2">Action</th>
+        </tr>
+    
+        {% for qcm in listQCM %} 
+            <tr>
+                <td>{{ qcm.titre }}</td>
+                <td>{{ qcm.deadline|date('d/m/Y') }}</td>
+                <td>{{ qcm.printEtat() }}</td>
+                <td>
+                    {% if qcm.notes|length == 0 %}
+                        <i>Pas de notes</i>
+                    {% else %}
+                        <a href="{{ path('resultat_qcm',{'id_qcm':qcm.id}) }}" title="Voir les résultats"><i class="fas fa-clipboard-list fa-lg"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% include '@KDCore/Includes/HTML/qcm_modal_link.html.twig' with {'qcm': qcm} only %}
+                    
+                    {%if qcm.etat == "NEW"%}
+                        <a href="{{ path("qcm_remove",{"id":qcm.id}) }}" title="Supprimer"><i class="fas fa-trash-alt fa-lg"></i></a>
+                    {%endif%}
+                </td>
+                <td>
+                    {%if qcm.etat != "PUBLIC"%}
+                        <a href="{{ path('qcm_change_etat',{"id":qcm.id}) }}">  
+                            {% if qcm.etat == "NEW" %}
+                                Mettre à disposition des élèves
+                            {% elseif qcm.etat == "OPEN"%}  
+                                Cloturer
+                            {% elseif qcm.etat == "CLOSED"%} 
+                                Publier les résultats
+                            {% endif %}
+                        </a>
+                    {%endif%}
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>  
+       
+    {% include '@KDCore/Includes/HTML/modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    {% include '@KDCore/Includes/JS/qcm_modal.js.twig' %}
+{% endblock %}

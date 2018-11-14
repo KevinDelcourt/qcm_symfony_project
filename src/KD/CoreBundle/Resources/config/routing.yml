@@ -1,0 +1,110 @@
+homepage:
+    path:     /
+    defaults: { _controller: KDCoreBundle:Index:index }
+
+login:
+    path:     /login/
+    defaults: { _controller: KDCoreBundle:Login:index }
+    
+logout:
+    path:     /logout/
+    
+add_user:
+    path:     /login/add/
+    defaults: { _controller: KDCoreBundle:Login:addUser }
+    
+mentions_legales:
+    path:     /mentions-legales/
+    defaults: { _controller: KDCoreBundle:Index:mentions }
+    
+themes:
+    path:     /prof/theme/
+    defaults: { _controller: KDCoreBundle:Theme:index }
+    
+themes_add:
+    path:     /prof/theme/add/
+    defaults: { _controller: KDCoreBundle:Theme:addTheme}
+    
+themes_edit:
+    path:     /prof/theme/edit/
+    defaults: { _controller: KDCoreBundle:Theme:editTheme}
+    
+themes_remove:
+    path:     /prof/theme/remove/{id}
+    defaults: { _controller: KDCoreBundle:Theme:deleteTheme}
+
+questions:
+    path:     /prof/questions/
+    defaults: { _controller: KDCoreBundle:Question:index }
+    
+questions_edit:
+    path:     /prof/questions/edit/{id}
+    defaults: { _controller: KDCoreBundle:QuestionCreation:edit }
+    
+questions_remove:
+    path:     /prof/questions/remove/{id}
+    defaults: { _controller: KDCoreBundle:QuestionCreation:delete }
+ 
+questions_filtrer_theme:
+    path:     /prof/questions/{id_theme}
+    defaults: { _controller: KDCoreBundle:Question:filtrerTheme }
+    
+detail_question:
+    path:     /prof/questions/detail/
+    defaults: { _controller: KDCoreBundle:Question:detailQuestion }
+    
+create_question:
+    path:     /prof/questions/creation/
+    defaults: { _controller: KDCoreBundle:QuestionCreation:index }
+    
+create_question_add:
+    path:     /prof/questions/creation/add/
+    defaults: { _controller: KDCoreBundle:QuestionCreation:add }
+
+liste_qcms:
+    path:     /prof/qcm/
+    defaults: { _controller: KDCoreBundle:QCM:index }
+
+detail_qcm:
+    path:     /prof/qcm/detail/
+    defaults: { _controller: KDCoreBundle:QCM:detailQCM }
+    
+qcm_change_etat:
+    path:     /prof/qcm/etat/{id}/
+    defaults: { _controller: KDCoreBundle:QCM:changeEtat }
+    
+qcm_remove:
+    path:     /prof/qcm/remove/{id}/
+    defaults: { _controller: KDCoreBundle:QCMCreation:delete }
+
+create_qcm:
+    path:     /prof/qcm/creation/
+    defaults: { _controller: KDCoreBundle:QCMCreation:index }
+    
+create_qcm_add:
+    path:     /prof/qcm/creation/add/
+    defaults: { _controller: KDCoreBundle:QCMCreation:add }
+
+resultat_qcm_detail_eleve:
+    path:     /prof/resultat/{id_qcm}/{id_eleve}/
+    defaults: { _controller: KDCoreBundle:Resultat:detailEleve }
+    
+resultat_qcm:
+    path:     /prof/resultat/{id_qcm}/
+    defaults: { _controller: KDCoreBundle:Resultat:affichageQCM }
+ 
+liste_qcms_eleve:
+    path:     /eleve/
+    defaults: { _controller: KDCoreBundle:QCM:affichageEleve }
+    
+repondre_qcm_send:
+    path:     /eleve/repondre/send
+    defaults: { _controller: KDCoreBundle:QCMRepondre:send }
+    
+repondre_qcm:
+    path:     /eleve/repondre/{id}
+    defaults: { _controller: KDCoreBundle:QCMRepondre:index }
+
+resultat_qcm_eleve:
+    path:     /eleve/resultat/{id}
+    defaults: { _controller: KDCoreBundle:Resultat:affichageEleveConnecte }

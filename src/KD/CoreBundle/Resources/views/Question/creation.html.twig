@@ -1,0 +1,109 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Formulaire de création/modification de question #}
+
+{% set editing = question != null %}
+
+{% block title %} - {%if editing %}Modifier{%else%}Ajouter{%endif%} une question{% endblock %}
+
+{% block main %}     
+    
+    <form action="{{ path('create_question_add') }}" method="post">
+
+        <h1>Question</h1>
+        <div class="form-group">
+            <label for="texteQuestion">Texte de la question:</label>
+            <textarea class="form-control" name="texteQuestion" placeholder="Texte de la question...">{%if editing %}{{question.texte}}{%endif%}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="theme">Choisissez un thème:</label>
+            <select class="form-control" name="theme">
+                {% for theme in listThemes %}
+                    <option 
+                        {%if editing and theme == question.theme %}selected{%endif%}
+                        value="{{ theme.id }}">
+                        {{ theme.nom }}
+                    </option>
+                {% endfor %}
+            </select> 
+        </div>
+
+        <h1>
+            Réponses 
+            <small>
+                <a href="#" title="Ajouter une réponse" 
+                   onclick=addReponse({{editing ? question.reponses|length+1 : 5 }}) 
+                   id="reponse-btn">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
+            </small>
+        </h1>
+
+        <div class="row" id="reponse-container">
+            {%if editing %}
+                {% for reponse in question.reponses %}
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="reponse[{{loop.index}}]">Texte de la réponse {{loop.index}}: </label>
+                            <textarea class="form-control" name="reponse[{{loop.index}}]" placeholder="Réponse...">{{reponse.texte}}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="vrai[{{loop.index}}]" {%if reponse.vrai %}checked{%endif%}>
+                                <label for="vrai[{{loop.index}}]" class="form-check-label">Réponse vraie</label>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%else%}
+                {% for i in 1..4 %}
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="reponse[{{i}}]">Texte de la réponse {{i}}: </label>
+                            <textarea class="form-control" name="reponse[{{i}}]" placeholder="Réponse..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="vrai[{{i}}]">
+                                <label for="vrai[{{i}}]" class="form-check-label">Réponse vraie</label>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%endif%}
+        </div>
+
+        {%if editing %}
+            <input hidden value="{{ question.id }}" name="question_id">
+        {%endif%}
+        <input type="submit" class="btn btn-primary" value="Ajouter la question">
+    </form> 
+{% endblock %}
+
+{% block js %}
+    <script>
+       /**
+        * Rajoute un bloc de réponse dans le formulaire
+        */
+       function addReponse(i){
+           $("#reponse-btn").attr("onclick","addReponse("+(i+1)+")");
+           
+           var output = '<div class="col-lg-3">';
+                output += '<div class="form-group">';
+                    output += '<label for="reponse['+i+']">Texte de la réponse '+i+': </label>';
+                    output += '<textarea class="form-control" name="reponse['+i+']" placeholder="Réponse..."></textarea>';
+                output += '</div>';
+                output += '<div class="form-group">';
+                    output += '<div class="form-check">';
+                        output += '<input type="checkbox" class="form-check-input" name="vrai['+i+']">';
+                        output += '<label for="vrai['+i+']" class="form-check-label">Réponse vraie</label>';
+                    output += '</div>';
+                output += '</div>';
+            output += '</div>';
+           
+           $("#reponse-container").append(output);
+       }
+    </script>
+{% endblock %}

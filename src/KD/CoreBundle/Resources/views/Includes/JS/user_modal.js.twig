@@ -1,0 +1,27 @@
+<script>
+    {# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/HTML/user_modal_link.html.twig
+    #}
+        
+    /**
+     * Mise à jour du modal avec la fiche de l'utilsateur passée en paramètre
+     * 
+     * @param {String} username
+     * @param {String} mail
+     * @param {String} role
+     */
+    function userModal(username, mail, role)
+    {
+        $("#modal_title").text(username);
+        $("#modal_body").html("");
+        
+        if(role == "ROLE_PROF")
+            $("#modal_body").append("<p><i>Professeur</i><br>");
+        else
+            $("#modal_body").append("<p><i>Eleve</i><br>");
+            
+        $("#modal_body").append("Adresse mail: ");
+        $("#modal_body").append('<a href="mailto:'+mail+'">'+mail+'</a></p>');
+    }
+</script>

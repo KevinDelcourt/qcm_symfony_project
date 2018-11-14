@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <title>QCM{% block title %}{% endblock %}</title>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+   
+    </head>
+    <body> 
+        {# barre de navigation #}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-power-off"></i></a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                    </li>
+                    {% if is_granted('ROLE_PROF') %}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('themes') }}">Thèmes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('questions') }}">Questions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('liste_qcms') }}">Gestion des QCMs</a>
+                        </li>
+                        
+                    {% elseif is_granted('ROLE_ELEVE') %}
+                        <span class="navbar-text">
+                              - Connecté en tant que {{app.user.username}}
+                        </span>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path("mentions_legales")}}" target="_blank">Mentions légales</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% endif %}
+        
+        {# Récupération des messages d'informations #}
+        <div class="container fixed-bottom">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        
+        <div class="container">  
+            {% block main %}{% endblock %}
+        </div>  
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        {% block js %}{% endblock %}
+    </body>        
+</html>
+
+
+

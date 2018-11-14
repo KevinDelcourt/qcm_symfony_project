@@ -1,0 +1,29 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Formulaire de réponse à un QCM #}
+
+{% block title %} - {{ qcm.titre }}{% endblock %}
+{% block main %}
+    <h1>{{ qcm.titre }}</h1>
+    <p><i>Notation: +2 par bonne réponse, -1 par mauvaise réponse. Une question a une ou plusieurs réponses.</i></p>   
+    <form action="{{ path('repondre_qcm_send') }}" method="post">
+        
+        <div class="row">
+            {% for question in qcm.questions %}
+                <div class="col-lg-3">
+                    <h5>{{ question.texte }}</h5>
+
+                    <div class="form-group">
+                        {% for reponse in question.reponses %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="reponses[{{ reponse.id }}]">
+                                <label class="form-check-label" for="reponses[{{ reponse.id }}]">{{ reponse.texte }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <input name="id_qcm" value="{{ qcm.id }}" hidden>
+        <input type="submit" class="btn btn-primary" value="Envoyer les réponses">
+    </form>
+{% endblock %}

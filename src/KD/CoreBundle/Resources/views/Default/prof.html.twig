@@ -1,0 +1,20 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Page d'accuil - Professeur #}
+{% block title %} - Portail Porfesseur{% endblock %}
+
+{% block main %}
+    <h1>Portail Professeur</h1>
+        
+    <p>
+        <i> Connecté en tant que {% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': app.user} only %}</i><br><br>
+        Vous pouvez naviquer dans l'application depuis la barre de navigation, ou bien commencer directement à créer des questions/QCMs avec les raccourcis ci-dessous.
+    </p>
+    <a class="btn btn-primary m-1" href="{{ path('create_question') }}">Créer une question</a><br>
+    <a class="btn btn-primary m-1" href="{{ path('create_qcm') }}">Créer un QCM</a>
+    
+    {% include '@KDCore/Includes/HTML/modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    {% include '@KDCore/Includes/JS/user_modal.js.twig' %}
+{% endblock %}

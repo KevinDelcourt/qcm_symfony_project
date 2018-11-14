@@ -1,0 +1,12 @@
+{# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/JS/question_modal.js.twig
+    #}
+
+{# Ce lien permet d'afficher le modal et le mettre à jour avec le détail d'une question#}
+<a href="#app_modal" 
+   data-toggle="modal" 
+   onclick="detailQuestion({{question.id}})" 
+   title="Voir la question">
+    <i class="fas fa-eye fa-lg"></i>
+</a>

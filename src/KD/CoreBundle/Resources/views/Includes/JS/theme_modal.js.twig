@@ -1,0 +1,30 @@
+<script>
+    
+    {# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/HTML/theme_modal_link.html.twig
+    #}
+        
+    /**
+     * Met à jour le modal avec le formulaire d'édition de thème.
+     * 
+     * @param {String} nom du thème
+     * @param {String} id du thème
+     * @param {String} action lien du formulaire
+     */
+    function themeModal(nom, id, action)
+    {
+        $("#modal_title").text("Modifier le thème: "+nom);
+        $("#modal_body").html("");
+        
+        var toAppend = '<form action="'+action+'" method="post">';
+
+        toAppend += '<input hidden name="id" value="'+id+'">';
+        toAppend += '<input type="text" class="form-control" name="nom" value="'+nom+'"><br>';
+        toAppend += '<input type="submit" class="btn btn-primary" value="Modifier ce thème">';
+        
+        toAppend += '</form>';
+
+        $("#modal_body").append(toAppend);
+    }
+</script>

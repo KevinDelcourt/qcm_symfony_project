@@ -1,0 +1,52 @@
+<?php
+
+namespace KD\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ReponseEleve
+ *
+ * @ORM\Table(name="reponse_eleve")
+ * @ORM\Entity(repositoryClass="KD\CoreBundle\Repository\ReponseEleveRepository")
+ */
+class ReponseEleve
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="KD\CoreBundle\Entity\User")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $eleve;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="KD\CoreBundle\Entity\Reponse")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $reponse;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="KD\CoreBundle\Entity\QCM")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $qcm;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
+

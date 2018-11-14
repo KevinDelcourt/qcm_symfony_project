@@ -1,0 +1,33 @@
+security:
+    encoders:
+        KD\CoreBundle\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        db_provider:
+            entity:
+                class: KDCoreBundle:User
+                property: username
+                
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            provider: db_provider
+            anonymous: ~
+            form_login: 
+                login_path: login
+                check_path: login
+                require_previous_session: false
+            logout:
+                path: /logout/
+                target: /login/
+            #access_denied_url: /login
+            
+    access_control:
+        - { path: ^/eleve, roles: ROLE_ELEVE }
+        - { path: ^/prof, roles: ROLE_PROF }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        

@@ -1,0 +1,69 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Affichage de la liste des questions #}
+
+{% block title %} - Questions{% endblock %}
+
+{% block main %}
+    <div class="row">
+        {# Menu de tri par thème #}
+        <nav class="col-sm-3 sidebar">
+            <h4>Filtrer par Thème</h4>
+
+            {%if theme != null%}
+                <a href="{{path("questions")}}">Supprimer le filtre</a>
+            {%endif%}
+            <ul class="nav nav-pills flex-column">
+                {% for theme in listThemes %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path("questions_filtrer_theme",{'id_theme':theme.id})}}">{{ theme.nom }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        {# Liste des questions #}
+        <div class="col-sm-9 pt-3">
+            <h1>Questions{%if theme != null%} - {{theme.nom}}{%endif%}
+                <small>
+                    <a href="{{ path('create_question') }}" title="Créer une question"><i class="fas fa-plus-circle"></i></a>
+                </small>
+            </h1>
+
+            {% if listQuestions|length > 0 %}
+                <table class="table">
+                    <tr>
+                        <th>Auteur</th>
+                        <th>Theme</th>
+                        <th>Question</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for question in listQuestions %}
+                        <tr>
+                            <td>{% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': question.auteur} only %}</td>
+                            <td>{{ question.theme.nom }}</td>
+                            <td>{{ question.texte }}</td>
+                            <td>
+                                {% include '@KDCore/Includes/HTML/question_modal_link.html.twig' with {'question': question} only %}
+
+                                {%if question.isEditable()%}
+                                    <a href="{{ path("questions_edit",{"id":question.id}) }}" title="Modifier"><i class="fas fa-edit fa-lg"></i></a>
+                                    <a href="{{ path("questions_remove",{"id":question.id}) }}" title="Supprimer"><i class="fas fa-trash-alt fa-lg"></i></a>
+                                {%endif%}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table> 
+            {%else%}
+                <i>Rien à afficher</i>
+            {%endif%}
+        </div>
+    </div>
+        
+    {% include '@KDCore/Includes/HTML/modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    {% include '@KDCore/Includes/JS/question_modal.js.twig' %}
+    {% include '@KDCore/Includes/JS/user_modal.js.twig' %}
+{% endblock %}

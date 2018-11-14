@@ -1,0 +1,56 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Affichage des QCMs pour un élève #}
+
+{% block title %} - Portail Eleve{% endblock %}
+{% block main %}
+ 
+    <h1>QCMs à rendre</h1>    
+    {%if todoQCMs == null%}
+        <i>Aucun QCM n'est disponible</i>
+    {%else%}
+    <table class="table">
+        <tr>
+            <th>Titre</th>
+            <th>Deadline</th>
+            <th>Repondre</th>
+        </tr>
+        {% for qcm in todoQCMs %}
+            <tr>
+                <td>{{ qcm.titre }}</td>
+                <td>{{ qcm.deadline|date('d/m/Y') }} à 23h55</td>
+                <td>
+                    <a href="{{ path('repondre_qcm', { 'id': qcm.id }) }}" 
+                       title="Faire le QCM">
+                        <i class="fas fa-pen fa-lg"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table> 
+    {%endif%}
+        
+    {%if submittedQCMs != null%}
+        <h1>QCMs rendus</h1> 
+        <table class="table">
+            <tr>
+                <th>Titre</th>
+                <th>Résultats</th>
+            </tr>
+            {% for qcm in submittedQCMs %}
+                <tr>
+                    <td>{{ qcm.titre }}</td>
+                    {% if qcm.etat == "PUBLIC" %}
+                        <td>
+                            <a href="{{ path('resultat_qcm_eleve', { 'id': qcm.id }) }}" 
+                               title="Voir les résultats">
+                                <i class="fas fa-clipboard-list fa-lg"></i>
+                            </a>
+                        </td>
+                    {% else %}
+                        <td><i>En attente des résultats</i></td>
+                    {% endif%}
+                </tr>
+            {% endfor %}
+        </table>  
+    {%endif%}
+{% endblock %}

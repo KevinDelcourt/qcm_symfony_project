@@ -1,0 +1,43 @@
+<script>
+    {# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/HTML/qcm_modal_link.html.twig
+    #}
+       
+    /**
+     * Déclenche la requête ajax pour récupérer les questions/réponses d'un QCM
+     * 
+     * @param id
+     */
+    function detailQCM(id){
+
+        $("#modal_title").text("Chargement...");
+        $("#modal_body").html("");
+
+        $.ajax({
+            url: "{{path("detail_qcm")}}",
+            method: "post",
+            data: {id: id}
+        }).done(function(msg){
+            updateModal(msg);
+        });
+    }
+
+    /**
+     * Mise à jour du modal avec les résultats de la requête
+     */
+    function updateModal(msg){
+        $("#modal_title").text(JSON.parse(msg["title"])) ;
+
+        $.each(JSON.parse(msg["questions"]),function(i,question){
+            $("#modal_body").append('<br><h5>'+question.texte+'</h5>');
+
+            $.each(question.reponse,function(i,reponse){
+                if(reponse.vrai)
+                    $("#modal_body").append("<p style='color:green'>"+reponse.texte+"</p>");
+                else
+                    $("#modal_body").append("<p style='color:red'>"+reponse.texte+"</p>");
+            });
+        });
+    }
+</script>

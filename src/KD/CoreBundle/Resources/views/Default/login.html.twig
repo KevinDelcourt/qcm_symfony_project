@@ -1,0 +1,60 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Page de connexion / Création de compte #}
+
+{% block title %} - Login{% endblock %}
+{% block main %}
+    <div class="row">
+        {# Formulaire de connexion #}
+        <div class="col-md-6 mt-3" >
+            <h4>Connexion</h4>
+              
+            <form action="{{ path('login') }}" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="_username" placeholder="nom d'utilisateur...">
+                </div>
+              
+                <div class="form-group">
+                    <input type="password" class="form-control" name="_password" placeholder="mot de passe...">
+                </div>
+                
+                <input type="submit" class="btn btn-primary" value="Se connecter">
+                <br><small><a href="{{path("mentions_legales")}}">Mentions légales</a></small>
+            </form> 
+        </div>
+        
+        {# Formulaire de création de compte #}
+        <div class="col-md-6 mt-3">
+            <h4>Nouvel Utilisateur</h4>
+              
+            <form action="{{ path('add_user') }}" method="post"> 
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="nom d'utilisateur...">
+                </div>
+              
+                <div class="form-group">
+                    <input type="password" class="form-control" name="mdp" placeholder="mot de passe...">
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="adresse mail...">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input"  name="role" value="eleve" checked>
+                        <label class="form-check-label" for="eleve">Eleve</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="role" value="prof" >
+                        <label class="form-check-label" for="prof">Professeur</label>
+                    </div>
+                </div>
+                
+                <input type="submit" class="btn btn-primary" value="Créer un compte">
+                <br><small><a href="{{path("mentions_legales")}}">Mentions légales</a></small>
+            </form> 
+        </div>
+    </div>
+
+{% endblock %}

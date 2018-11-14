@@ -1,0 +1,16 @@
+{# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/JS/theme_modal.js.twig
+    #}
+
+{# Ce lien permet d'afficher le modal et le mettre à jour avec le formulaire de modification d'un thème #}
+<a href="#app_modal" 
+   data-toggle="modal" 
+   onclick="themeModal(
+               '{{ theme.nom }}',
+               '{{ theme.id }}',
+               '{{ path("themes_edit") }}'
+               )" 
+   title="Modifier">
+    <i class="fas fa-edit fa-lg"></i>
+</a>

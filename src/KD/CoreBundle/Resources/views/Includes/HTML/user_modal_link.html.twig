@@ -1,0 +1,17 @@
+{# Pour fonctionnner, ce fichier doit être inclu dans un template qui inclut aussi
+        /Includes/HTML/modal.html.twig
+        /Includes/JS/user_modal.js.twig
+    #}
+
+{# Ce lien permet d'afficher le modal et le mettre à jour avec une fiche utilisateur#}
+<a class="text-dark" 
+   href="#app_modal" 
+   data-toggle="modal" 
+   onclick="userModal(
+               '{{ user.username }}',
+               '{{ user.email }}',
+               '{{ user.role }}'
+               )" 
+   title="Voir le profil">
+    <i class="fas fa-user"></i> {{ user.username }}
+</a>

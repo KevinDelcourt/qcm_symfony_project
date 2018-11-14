@@ -1,0 +1,84 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Formulaire de création d'un QCM #}
+
+{% block title %} - Créer un QCM{% endblock %}
+
+{% block main %}
+    <div class="row">
+        {# liste des question à ajouter #}
+        <div class="col-md-6">
+            <h1>Questions</h1>
+            
+            <table class="table">
+                <tr>
+                    <th>Question</th>
+                    <th colspan="2">Action</th>
+                </tr>
+                {% for question in listQuestions %} 
+                    <tr>
+                        <td id="text-{{question.id}}">{{ question.texte }}</td>
+                        <td>{% include '@KDCore/Includes/HTML/question_modal_link.html.twig' with {'question': question} only %}</td>
+                        <td><a href="#" id="toggle-{{question.id}}" class="toggle-question" title="Ajouter"><i class="fas fa-plus fa-lg"></i></a></td>
+                    </tr>
+                {% endfor %} 
+            </table>
+        </div>
+        {# Le formulaire du QCM #}
+        <div class="col-md-6">
+            <h1>QCM</h1>
+        
+            <form action="{{ path('create_qcm_add') }}" method="post">
+
+                <div class="form-group">
+                    <input name="titre" class="form-control" placeholder="Titre">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Quelle est la date limite pour remplir le QCM?</label>
+                    <input type="date" class="form-control" name="deadline">
+                </div>
+                
+                <div class="form-group" id="questions-group">
+                    <label for="questions[]">Questions sélectionnées</label>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Créer le QCM">
+            </form> 
+        </div>
+    </div>
+    
+    {% include '@KDCore/Includes/HTML/modal.html.twig' %}
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        /**
+         * Ajoute ou enlève une question du QCM, en fonction de l'état du lien.
+         * Inverse l'état du lien.
+         */
+        $(".toggle-question").click(function(){
+            var id = $(this).attr('id').replace('toggle-','');
+            
+            if($(this).attr("title") == "Ajouter"){
+                var text = $("#text-"+id).text();
+            
+                var toAppend = '<div id="data-'+id+'">';
+                toAppend += '<small>'+text+'</small>';
+                toAppend += '<input hidden type="text" class="form-control-plaintext" name=questions['+id+'] value="'+id+'">';
+                toAppend += '</div>';
+
+                $("#questions-group").append(toAppend);
+                
+                $(this).attr("title","Retirer");
+                $(this).html('<i class="fas fa-minus fa-lg"></i>');
+            }else{
+                $("#data-"+id).remove();
+                $(this).attr("title","Ajouter");
+                $(this).html('<i class="fas fa-plus fa-lg"></i>');
+            }
+        });
+    </script>
+    
+    {% include '@KDCore/Includes/JS/question_modal.js.twig' %}
+{%endblock%}

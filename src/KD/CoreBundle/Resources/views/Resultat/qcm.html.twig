@@ -1,0 +1,28 @@
+{% extends '@KDCore/base.html.twig' %}
+{# Affichage de tout les résultats d'un qcm #}
+
+{% block title %} - Résultats - {{ qcm.titre }}{% endblock %}
+{% block main %}
+    <h1>{{ qcm.titre }}</h1>
+    <h2>{{ notes|length }} notes enregistrées</h2>
+        <table class="table">
+            <tr>
+                <th>Eleve</th>
+                <th>Score</th>
+                <th>Action</th>
+            </tr>
+            {% for note in notes %}
+                <tr>
+                    <td>{% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': note.eleve} only %}</td>
+                    <td>{{ note.valeur }}/{{ qcm.getScoreMax()}}</td>
+                    <td><a href="{{ path('resultat_qcm_detail_eleve', { 'id_qcm': qcm.id,'id_eleve':note.eleve.id}) }}" title="Voir détail"><i class="fas fa-eye fa-lg"></i></a></td>
+                </tr>
+            {% endfor%}
+        </table>
+            
+    {% include '@KDCore/Includes/HTML/modal.html.twig' %}
+{% endblock %}
+
+{% block js %}
+    {% include '@KDCore/Includes/JS/user_modal.js.twig' %}
+{% endblock %}
