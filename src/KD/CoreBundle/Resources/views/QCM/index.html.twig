@@ -8,7 +8,7 @@
             <a href="{{ path('create_qcm') }}" title="Créer un QCM"><i class="fas fa-plus-circle"></i></a>
         </small>
     </h1>
-        
+    <input type="text" id="filtre" class="form-control"  placeholder="Filtrer..."><br>
     <table class="table">
         <tr>
             <th>Titre</th>
@@ -17,7 +17,8 @@
             <th>Résultats</th>
             <th colspan="2">Action</th>
         </tr>
-    
+        
+        <tbody id="aFiltrer">
         {% for qcm in listQCM %} 
             <tr>
                 <td>{{ qcm.titre }}</td>
@@ -53,11 +54,13 @@
                 </td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>  
        
     {% include '@KDCore/Includes/HTML/modal.html.twig' %}
 {% endblock %}
 
 {% block js %}
+    {% include '@KDCore/Includes/JS/table_filter.js.twig' %}
     {% include '@KDCore/Includes/JS/qcm_modal.js.twig' %}
 {% endblock %}

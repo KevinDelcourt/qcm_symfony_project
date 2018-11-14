@@ -15,7 +15,7 @@ class QCMCreationController extends BaseController
      */
     public function indexAction()
     {
-        $listQuestions = $this->getRepository('Question')->findAll();
+        $listQuestions = $this->getRepository('Question')->allWithEntities();
         return $this->render('KDCoreBundle:QCM:creation.html.twig', array('listQuestions' => $listQuestions));    
     }
     

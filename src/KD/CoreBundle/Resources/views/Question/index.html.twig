@@ -7,7 +7,7 @@
     <div class="row">
         {# Menu de tri par thème #}
         <nav class="col-sm-3 sidebar">
-            <h4>Filtrer par Thème</h4>
+            <h1>Filtrer par Thème</h1>
 
             {%if theme != null%}
                 <a href="{{path("questions")}}">Supprimer le filtre</a>
@@ -42,7 +42,7 @@
                         <tr>
                             <td>{% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': question.auteur} only %}</td>
                             <td>{{ question.theme.nom }}</td>
-                            <td>{{ question.texte }}</td>
+                            <td>{{ question.getTexteShort() }}</td>
                             <td>
                                 {% include '@KDCore/Includes/HTML/question_modal_link.html.twig' with {'question': question} only %}
 

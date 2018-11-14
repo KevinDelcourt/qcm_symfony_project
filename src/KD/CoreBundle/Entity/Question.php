@@ -66,6 +66,18 @@ class Question
     public function isEditable(){
         return count($this->qcms->toArray()) == 0;
     }
+    
+    /**
+     * Retourne une version raccourçie du texte de la question, pour affichage
+     */
+    public function getTexteShort()
+    {
+        if(strlen($this->texte) > 50)
+            return substr($this->texte,0,50)."...";
+        else
+            return $this->texte;
+    }
+    
     /**
      * Get id
      *

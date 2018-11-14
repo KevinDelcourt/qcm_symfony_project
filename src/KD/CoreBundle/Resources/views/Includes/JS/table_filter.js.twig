@@ -1,0 +1,18 @@
+<script>
+    {# 
+       Le tableau à filter doit avoir l'id #aFilter
+       L'input de filtre doit avoir l'id #filtre
+    #}
+        
+    /**
+    * Fonction de filtre du tableau de questions
+    */
+    $(document).ready(function(){
+       $("#filtre").on("keyup", function() {
+           var value = $(this).val().toLowerCase();
+           $("#aFiltrer tr").filter(function() {
+               $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+           });
+       });
+    });
+</script>
