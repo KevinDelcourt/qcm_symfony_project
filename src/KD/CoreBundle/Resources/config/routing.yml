@@ -41,6 +41,10 @@ questions_edit:
     path:     /prof/questions/edit/{id}
     defaults: { _controller: KDCoreBundle:QuestionCreation:edit }
     
+questions_copy:
+    path:     /prof/questions/copy/{id}
+    defaults: { _controller: KDCoreBundle:QuestionCreation:copy }
+    
 questions_remove:
     path:     /prof/questions/remove/{id}
     defaults: { _controller: KDCoreBundle:QuestionCreation:delete }

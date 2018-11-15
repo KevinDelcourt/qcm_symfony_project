@@ -6,7 +6,7 @@
 {% block main %}
     <div class="row">
         {# Menu de tri par thème #}
-        <nav class="col-sm-3 sidebar">
+        <nav class="col-lg-3 sidebar">
             <h1>Filtrer par Thème</h1>
 
             {%if theme != null%}
@@ -22,7 +22,7 @@
         </nav>
 
         {# Liste des questions #}
-        <div class="col-sm-9 pt-3">
+        <div class="col-lg-9 pt-3">
             <h1>Questions{%if theme != null%} - {{theme.nom}}{%endif%}
                 <small>
                     <a href="{{ path('create_question') }}" title="Créer une question"><i class="fas fa-plus-circle"></i></a>
@@ -49,6 +49,8 @@
                                 {%if question.isEditable()%}
                                     <a href="{{ path("questions_edit",{"id":question.id}) }}" title="Modifier"><i class="fas fa-edit fa-lg"></i></a>
                                     <a href="{{ path("questions_remove",{"id":question.id}) }}" title="Supprimer"><i class="fas fa-trash-alt fa-lg"></i></a>
+                                {%else%}
+                                    <a href="{{ path("questions_copy",{"id":question.id}) }}" title="Créer une copie"><i class="far fa-clone fa-lg"></i></a>
                                 {%endif%}
                             </td>
                         </tr>

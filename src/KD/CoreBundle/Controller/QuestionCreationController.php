@@ -20,7 +20,8 @@ class QuestionCreationController extends BaseController
     
         return $this->render('KDCoreBundle:Question:creation.html.twig', array(
             'listThemes' => $listThemes,
-            'question' => null
+            'question' => null,
+            'copy' => false
                 ));
     }
     
@@ -38,7 +39,28 @@ class QuestionCreationController extends BaseController
         
         return $this->render('KDCoreBundle:Question:creation.html.twig', array(
             'listThemes' => $listThemes,
-            'question'   => $question    
+            'question'   => $question,
+            'copy' => false    
+                ));
+    }
+    
+    /**
+     * Affiche le formulaire de création d'une question, avec les informations
+     * de la question $id déjà renseignées pour copie.
+     * Ne supprimera pas la question copiée.
+     */
+    public function copyAction($id)
+    {
+        $listThemes = $this->getRepository('Theme')->findAll();        
+        $question = $this->getRepository("Question")->oneByIdWithEntities($id);
+        
+        if($question == null)
+            return $this->redirectWithErrorFlash("questions", "Adresse invalide");
+        
+        return $this->render('KDCoreBundle:Question:creation.html.twig', array(
+            'listThemes' => $listThemes,
+            'question'   => $question,
+            'copy' => true    
                 ));
     }
     

@@ -9,7 +9,11 @@
     
     <form action="{{ path('create_question_add') }}" method="post">
 
-        <h1>Question</h1>
+        {%if editing %}
+            <h1>{{copy? "Copie":"Modification"}} de: <small>"{{question.getTexteShort()}}"</small></h1>
+        {%else%}
+            <h1>Nouvelle question</h1>
+        {%endif%}
         <div class="form-group">
             <label for="texteQuestion">Texte de la question:</label>
             <textarea class="form-control" name="texteQuestion" placeholder="Texte de la question...">{%if editing %}{{question.texte}}{%endif%}</textarea>
@@ -75,7 +79,7 @@
             {%endif%}
         </div>
 
-        {%if editing %}
+        {%if editing and not copy %}
             <input hidden value="{{ question.id }}" name="question_id">
         {%endif%}
         <input type="submit" class="btn btn-primary" value="Ajouter la question">

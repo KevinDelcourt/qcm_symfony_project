@@ -12,11 +12,15 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/AppBundle/Repository/UserRepository.php</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Resources/views/Question/index.html.twig</file>
             <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Repository/QCMRepository.php</file>
-            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Resources/config/routing.yml</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Resources/views/QCM/creation.html.twig</file>
             <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Repository/NoteRepository.php</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Resources/views/Includes/JS/table_filter.js.twig</file>
             <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Repository/QuestionRepository.php</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Resources/views/QCM/index.html.twig</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Entity/Question.php</file>
+            <file>file:/Applications/MAMP/htdocs/qcm_app/Symfony/src/KD/CoreBundle/Controller/QCMCreationController.php</file>
         </group>
     </open-files>
 </project-private>
