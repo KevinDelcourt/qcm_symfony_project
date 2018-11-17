@@ -34,9 +34,9 @@
 
             $.each(question.reponse,function(i,reponse){
                 if(reponse.vrai)
-                    $("#modal_body").append("<p style='color:green'>"+reponse.texte+"</p>");
+                    $("#modal_body").append("<p class='text-success'>"+reponse.texte+"</p>");
                 else
-                    $("#modal_body").append("<p style='color:red'>"+reponse.texte+"</p>");
+                    $("#modal_body").append("<p class='text-danger'>"+reponse.texte+"</p>");
             });
         });
     }

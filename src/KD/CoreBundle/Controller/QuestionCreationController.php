@@ -21,6 +21,28 @@ class QuestionCreationController extends BaseController
         return $this->render('KDCoreBundle:Question:creation.html.twig', array(
             'listThemes' => $listThemes,
             'question' => null,
+            'selectedTheme' => null,
+            'copy' => false
+                ));
+    }
+    
+    /**
+     * Affiche le formulaire de création d'une question, avec un thème choisi
+     */
+    public function indexWithThemeAction($id_theme)
+    {
+        $repositoryTheme = $this->getRepository("Theme");
+        
+        $listThemes = $repositoryTheme->findAll();
+        $selectedTheme = $repositoryTheme->findOneById($id_theme);
+        
+        if($selectedTheme == null)
+            return $this->redirectWithErrorFlash("themes","Adresse invalide");
+    
+        return $this->render('KDCoreBundle:Question:creation.html.twig', array(
+            'listThemes' => $listThemes,
+            'question' => null,
+            'selectedTheme' => $selectedTheme,
             'copy' => false
                 ));
     }
@@ -40,6 +62,7 @@ class QuestionCreationController extends BaseController
         return $this->render('KDCoreBundle:Question:creation.html.twig', array(
             'listThemes' => $listThemes,
             'question'   => $question,
+            'selectedTheme' => $question->getTheme(),
             'copy' => false    
                 ));
     }
@@ -60,6 +83,7 @@ class QuestionCreationController extends BaseController
         return $this->render('KDCoreBundle:Question:creation.html.twig', array(
             'listThemes' => $listThemes,
             'question'   => $question,
+            'selectedTheme' => $question->getTheme(),
             'copy' => true    
                 ));
     }

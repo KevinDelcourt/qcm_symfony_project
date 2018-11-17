@@ -24,7 +24,7 @@
             <select class="form-control" name="theme">
                 {% for theme in listThemes %}
                     <option 
-                        {%if editing and theme == question.theme %}selected{%endif%}
+                        {%if selectedTheme!=null and theme == selectedTheme %}selected{%endif%}
                         value="{{ theme.id }}">
                         {{ theme.nom }}
                     </option>

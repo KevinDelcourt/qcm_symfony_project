@@ -12,19 +12,19 @@
      * @param {String} id du thème
      * @param {String} action lien du formulaire
      */
-    function themeModal(nom, id, action)
+    function themeModal(nom, id)
     {
-        $("#modal_title").text("Modifier le thème: "+nom);
-        $("#modal_body").html("");
-        
-        var toAppend = '<form action="'+action+'" method="post">';
+            $("#modal_title").text("Modifier le thème: "+nom);
+            $("#modal_body").html("");
 
-        toAppend += '<input hidden name="id" value="'+id+'">';
-        toAppend += '<input type="text" class="form-control" name="nom" value="'+nom+'"><br>';
-        toAppend += '<input type="submit" class="btn btn-primary" value="Modifier ce thème">';
-        
-        toAppend += '</form>';
+            var toAppend = '<form action="{{ path("themes_edit") }}" method="post">';
 
-        $("#modal_body").append(toAppend);
+            toAppend += '<input hidden name="id" value="'+id+'">';
+            toAppend += '<input type="text" class="form-control" name="nom" value="'+nom+'"><br>';
+            toAppend += '<input type="submit" class="btn btn-primary" value="Modifier ce thème">';
+
+            toAppend += '</form>';
+
+            $("#modal_body").append(toAppend);
     }
 </script>

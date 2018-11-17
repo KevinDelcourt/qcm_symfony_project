@@ -5,7 +5,7 @@
 {% block main %}
     <h1>{{ qcm.titre }}</h1>
     <p><i>Notation: +2 par bonne réponse, -1 par mauvaise réponse. Une question a une ou plusieurs réponses.</i></p>   
-    <form action="{{ path('repondre_qcm_send') }}" method="post">
+    <form action="{{ path('repondre_qcm_send') }}" method="post" onsubmit="return confirm_dialog('Les réponses seront envoyées.')">
         
         <div class="row">
             {% for question in qcm.questions %}
@@ -24,6 +24,10 @@
             {% endfor %}
         </div>
         <input name="id_qcm" value="{{ qcm.id }}" hidden>
-        <input type="submit" class="btn btn-primary" value="Envoyer les réponses">
+        <input type="submit" class="btn btn-primary" value="Envoyer les réponses" >
     </form>
+{% endblock %}
+
+{% block js %}
+    {% include '@KDCore/Includes/JS/confirm_dialog.js.twig' %}
 {% endblock %}

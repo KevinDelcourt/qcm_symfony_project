@@ -6,17 +6,23 @@
 {% block main %}
     <h1>{{ qcm.titre }} - Réponses de {{ eleve.username }}</h1>
     <h2>Note : {{ note.valeur }}/{{qcm.getScoreMax()}}</h2>
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-striped">
            {% for question in qcm.questions %}
-                <tr>
+                <thead>
                     <th>{{ question.texte }}</th>
                     <th>Réponse de {{ eleve.username }}</th>
                     <th>Bonne réponse</th>
                     <th>Score</th>
-                </tr>
-                
+                </thead>
+                <tbody>
                 {% for reponse in question.reponses %}
+                    {# Est-ce que l'élève s'est trompé? #}
+                    {%if reponse.isPresent(reponsesEleve) != reponse.vrai%}
+                    <tr class="text-danger">
+                    {%else%}
                     <tr>
+                    {%endif%}
                         <td>{{ reponse.texte }}</td>
                         <td>
                             {% if reponse.isPresent(reponsesEleve) %}
@@ -35,13 +41,12 @@
                         <td>{{ reponse.getScoreIfPresent(reponsesEleve)}}</td>
                     </tr>
                 {% endfor %}
-                
+                </tbody>
             {% endfor %}
-            <tr>
-                <th>Total</th>
-                <th></th>
-                <th></th>
+            <thead>
+                <th colspan="3">Total</th>
                 <th>{{ note.valeur }}</th>
-            </tr>
+            </thead>
         </table>
+    </div>
 {% endblock %}

@@ -23,39 +23,55 @@
 
         {# Liste des questions #}
         <div class="col-lg-9 pt-3">
-            <h1>Questions{%if theme != null%} - {{theme.nom}}{%endif%}
+            <h1>Questions{%if theme != null%} - {{theme.nom}}
+                <small>
+                    <a href="{{ path('create_question_with_theme',{'id_theme':theme.id}) }}" title="Créer une question"><i class="fas fa-plus-circle"></i></a>
+                </small>
+                {%else%}
                 <small>
                     <a href="{{ path('create_question') }}" title="Créer une question"><i class="fas fa-plus-circle"></i></a>
                 </small>
+                {%endif%}
             </h1>
-
+            <div class='container mb-1'>
+                <p class="collapse text-faded" id="legende">
+                    <i class="fas fa-plus-circle"></i> : Créer une question<br>
+                    <i class="fas fa-eye"></i> : Voir le détail d'une question<br>
+                    <i class="fas fa-edit"></i> : Modifier une question<sup>1</sup><br>
+                    <i class="fas fa-trash-alt"></i> : Supprimer une question<sup>1</sup><br>
+                    <i class="far fa-clone"></i> : Créer une copie d'une question<br>
+                    <small><i>1: Possible uniquement si aucun QCM n'utilise la question</i></small>
+                </p>
+            </div>     
             {% if listQuestions|length > 0 %}
-                <table class="table">
-                    <tr>
-                        <th>Auteur</th>
-                        <th>Theme</th>
-                        <th>Question</th>
-                        <th>Action</th>
-                    </tr>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Auteur</th>
+                            <th>Theme</th>
+                            <th>Question</th>
+                            <th><a data-toggle="collapse" href="#legende" role="button">Action <i>?</i></a></th>
+                        </thead>
 
-                    {% for question in listQuestions %}
-                        <tr>
-                            <td>{% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': question.auteur} only %}</td>
-                            <td>{{ question.theme.nom }}</td>
-                            <td>{{ question.getTexteShort() }}</td>
-                            <td>
-                                {% include '@KDCore/Includes/HTML/question_modal_link.html.twig' with {'question': question} only %}
+                        {% for question in listQuestions %}
+                            <tr>
+                                <td>{% include '@KDCore/Includes/HTML/user_modal_link.html.twig' with {'user': question.auteur} only %}</td>
+                                <td>{{ question.theme.nom }}</td>
+                                <td>{{ question.getTexteShort() }}</td>
+                                <td>
+                                    {% include '@KDCore/Includes/HTML/question_modal_link.html.twig' with {'question': question} only %}
 
-                                {%if question.isEditable()%}
-                                    <a href="{{ path("questions_edit",{"id":question.id}) }}" title="Modifier"><i class="fas fa-edit fa-lg"></i></a>
-                                    <a href="{{ path("questions_remove",{"id":question.id}) }}" title="Supprimer"><i class="fas fa-trash-alt fa-lg"></i></a>
-                                {%else%}
-                                    <a href="{{ path("questions_copy",{"id":question.id}) }}" title="Créer une copie"><i class="far fa-clone fa-lg"></i></a>
-                                {%endif%}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table> 
+                                    {%if question.isEditable()%}
+                                        <a href="{{ path("questions_edit",{"id":question.id}) }}" title="Modifier"><i class="fas fa-edit fa-lg"></i></a>
+                                        <a href="{{ path("questions_remove",{"id":question.id}) }}" title="Supprimer"><i class="fas fa-trash-alt fa-lg"></i></a>
+                                    {%else%}
+                                        <a href="{{ path("questions_copy",{"id":question.id}) }}" title="Créer une copie"><i class="far fa-clone fa-lg"></i></a>
+                                    {%endif%}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table> 
+                </div>
             {%else%}
                 <i>Rien à afficher</i>
             {%endif%}

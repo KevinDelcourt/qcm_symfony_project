@@ -12,6 +12,7 @@ class ResultatController extends BaseController
 {
     /**
      * Affiche toutes les notes d'un QCM $id_qcm pour un professeur
+     * avec la liste des élèves n'ayant pas répondus
      */
     public function affichageQCMAction($id_qcm)
     {
@@ -23,9 +24,18 @@ class ResultatController extends BaseController
         if(count($notes) == 0)
             return $this->redirectWithErrorFlash("resultats", "Pas de note à aficher");
         
+        $eleves = $this->getRepository("User")->findByRole("ROLE_ELEVE");
+        foreach ($eleves as $key => $eleve) 
+            if($qcm->submittedBy($eleve)) {
+                unset($eleves[$key]);
+            }
+            
+        $stats = $this->getRepository("Note")->getStatsFromQCM($qcm->getId()) ;
         return $this->render('KDCoreBundle:Resultat:qcm.html.twig', array(
             'qcm' => $qcm,
-            'notes'=>$notes
+            'elevesSansNotes'=> $eleves,
+            'notes'=>$notes,
+            'stats'=>$stats
             ));
     }
     

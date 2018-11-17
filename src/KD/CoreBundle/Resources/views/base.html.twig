@@ -13,8 +13,8 @@
     <body> 
         {# barre de navigation #}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-power-off"></i></a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-power-off"></i> Déconnexion</a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" >
                 <span class="navbar-toggler-icon"></span>
@@ -34,9 +34,14 @@
                             <a class="nav-link" href="{{ path('questions') }}">Questions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('liste_qcms') }}">Gestion des QCMs</a>
+                            <a class="nav-link" href="{{ path('liste_qcms') }}">Gestion QCM</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('create_question') }}">Nouvelle question</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('create_qcm') }}">Nouveau QCM</a>
+                        </li>
                     {% elseif is_granted('ROLE_ELEVE') %}
                         <span class="navbar-text">
                               - Connecté en tant que {{app.user.username}}

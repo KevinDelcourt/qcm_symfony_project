@@ -272,7 +272,6 @@ class QCM
         return $this->notes;
     }
     
-
     /**
      * Set etat
      *

@@ -64,6 +64,10 @@ create_question:
 create_question_add:
     path:     /prof/questions/creation/add/
     defaults: { _controller: KDCoreBundle:QuestionCreation:add }
+    
+create_question_with_theme:
+    path:     /prof/questions/creation/{id_theme}
+    defaults: { _controller: KDCoreBundle:QuestionCreation:indexWithTheme }
 
 liste_qcms:
     path:     /prof/qcm/
